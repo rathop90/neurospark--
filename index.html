@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeuroSpark - Free Books</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="script.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -27,12 +27,17 @@
     </section>
 
     <div class="admin-controls">
-        <button onclick="adminLogin()" id="login-btn">🔑 Admin Login</button>
-        <button onclick="adminLogout()" id="logout-btn" style="display: none;">🚪 Admin Logout</button>
+        <button id="login-btn">🔑 Admin Login</button>
+        <button id="logout-btn" style="display: none;">🚪 Admin Logout</button>
     </div>
 
     <footer>
         <p>Join our Telegram: <a href="https://t.me/neurosparkwebofficial" target="_blank">t.me/neurosparkwebofficial</a></p>
     </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
