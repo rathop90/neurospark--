@@ -1,7 +1,3 @@
-// Firebase SDK Import
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import { getDatabase, ref, set, get, child, remove } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-
 // ✅ Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAr0Zs5gXrX7P7Vb_3OHMom3e2cjszFC2k",
@@ -13,10 +9,11 @@ const firebaseConfig = {
     appId: "1:16936570218:web:3fc676530ace108e6f6913"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+// ✅ Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
+// ✅ Load Books on Page Load
 document.addEventListener("DOMContentLoaded", function () {
     loadBooks();
     checkAdmin();
@@ -25,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // ✅ Load Books from Firebase
 function loadBooks() {
     let bookList = document.getElementById("book-list");
-    let booksRef = ref(db, "books/");
+    let booksRef = db.ref("books/");
 
-    get(booksRef).then((snapshot) => {
+    booksRef.once("value", (snapshot) => {
         if (snapshot.exists()) {
             let books = snapshot.val();
             bookList.innerHTML = "";
@@ -42,7 +39,7 @@ function loadBooks() {
     });
 }
 
-// ✅ Upload Books to Firebase
+// ✅ Upload Book (Admin Only)
 function uploadBook() {
     let fileInput = document.getElementById("book-upload");
     if (fileInput.files.length === 0) {
@@ -53,20 +50,20 @@ function uploadBook() {
     let fileName = fileInput.files[0].name;
     let bookId = Date.now().toString();
 
-    set(ref(db, "books/" + bookId), fileName).then(() => {
+    db.ref("books/" + bookId).set(fileName).then(() => {
         loadBooks();
     });
 }
 
 // ✅ Delete Book (Admin Only)
 function deleteBook(bookId) {
-    remove(ref(db, "books/" + bookId)).then(() => {
+    db.ref("books/" + bookId).remove().then(() => {
         loadBooks();
     });
 }
 
-// ✅ Admin Login
-function adminLogin() {
+// ✅ Admin Login (Now Works)
+document.getElementById("login-btn").addEventListener("click", function () {
     let password = prompt("Enter Admin Password:");
     if (password === "051085") {
         localStorage.setItem("admin", "true");
@@ -76,15 +73,15 @@ function adminLogin() {
     } else {
         alert("Wrong Password!");
     }
-}
+});
 
 // ✅ Admin Logout
-function adminLogout() {
+document.getElementById("logout-btn").addEventListener("click", function () {
     localStorage.removeItem("admin");
     alert("Admin Mode Deactivated!");
     checkAdmin();
     loadBooks();
-}
+});
 
 // ✅ Check Admin Mode
 function checkAdmin() {
