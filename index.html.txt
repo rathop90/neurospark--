@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroSpark - Free Books</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>NeuroSpark</h1>
+        <p>Why pay for it when you can get for free</p>
+    </header>
+
+    <section class="books">
+        <h2>📚 Latest Books</h2>
+        <div class="book-list" id="book-list">
+            <!-- Books will be loaded here dynamically -->
+        </div>
+    </section>
+
+    <section class="upload" id="admin-section" style="display: none;">
+        <h2>📤 Upload a Book</h2>
+        <input type="file" id="book-upload">
+        <button onclick="uploadBook()">Upload</button>
+    </section>
+
+    <div class="admin-controls">
+        <button onclick="adminLogin()" id="login-btn">🔑 Admin Login</button>
+        <button onclick="adminLogout()" id="logout-btn" style="display: none;">🚪 Admin Logout</button>
+    </div>
+
+    <footer>
+        <p>Join our Telegram: <a href="https://t.me/neurosparkwebofficial" target="_blank">t.me/neurosparkwebofficial</a></p>
+    </footer>
+</body>
+</html>
